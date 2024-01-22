@@ -11,7 +11,7 @@ class ProjectController extends Controller {
      * Si occupa della creazione di un nuovo progetto laravel
      */
     public function createNewProject(Request $request) { 
-//rimmuovere la cartella aggiuntiva
+        ini_set('max_execution_time', 300);
         $projectName = $request->get('name', 'NuovoProgetto');
         $projectPath = storage_path('app/' . $projectName);
 
