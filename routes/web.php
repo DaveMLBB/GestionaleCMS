@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+// Prefisso per tutte le route relative alla creazione di progetti
+Route::prefix('project-creator')->group(function () {
+    Route::get('/create', [ProjectController::class, 'createNewProject'])->name('createNewProject');
 });
