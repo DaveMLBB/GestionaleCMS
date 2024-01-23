@@ -64,28 +64,25 @@ class ProjectController extends Controller {
             // Scegli il template in base al tipo di autenticazione
             $loginPageContent = '';
             if ($authType === 'basic') {
-                $loginPageContent = LoginTemplates::BASIC;
+                $loginPageContent = LoginTemplates::BASIC->value;
             } elseif ($authType === 'advanced') {
-                $loginPageContent = LoginTemplates::ADVANCED;
+                $loginPageContent = LoginTemplates::ADVANCED->value;
             } else {
                 throw new \Exception("Tipo di autenticazione non valido.");
             }
     
             // Scrivi il contenuto nella pagina di login
             file_put_contents($loginPagePath, $loginPageContent);
-            Log::info($loginPageContent);
 
             // Aggiorna il file delle rotte per reindirizzare alla login
             $routesPath = $projectPath . '/' . $projectName . '/routes/web.php';
-            $routeContent = LoginRoutes::LOGIN_ROUTE;
+            $routeContent = LoginRoutes::LOGIN_ROUTE->value;
             file_put_contents($routesPath, $routeContent);
-            Log::info($routeContent);
 
             // Aggiunge uno stile css alla pagina di login
             $cssPath = $projectPath . '/' . $projectName . '/resources/css/login.css';
-            $cssContent = LoginCss::LOGIN_CSS;
+            $cssContent = LoginCss::LOGIN_CSS->value;
             file_put_contents($cssPath, $cssContent);
-            Log::info($cssContent);
 
             return 'Pagina di login e rotte aggiornate con successo.';
         } catch (\Exception $e) {
