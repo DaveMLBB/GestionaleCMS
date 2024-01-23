@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Start Project - GestionaleCMS</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -48,6 +50,12 @@
         <h1>Benvenuto in GestionaleCMS</h1>
         <p>Inizia a creare il tuo progetto gestionale personalizzato.</p>
         <input type="text" id="projectName" placeholder="Nome del Progetto">
+        <!-- Menu a tendina per scegliere il tipo di autenticazione -->
+        <select id="authType">
+            <option value="basic">Basic Authentication</option>
+            <option value="advanced">Advanced Authentication</option>
+        </select>
+
         <button id="startProject">Start Project</button>
 
         <div id="loadingIndicator">
@@ -58,13 +66,14 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+   <script>
         $(document).ready(function() {
             $('#startProject').click(function() {
                 $('#loadingIndicator').show();
                 var projectName = $('#projectName').val();
-                $.get('/project-creator/create', { name: projectName }, function(data) {
+                var authType = $('#authType').val(); 
+
+                $.get('/project-creator/create', { name: projectName, authType: authType }, function(data) {
                     $('#loadingIndicator').hide();
                     alert(data.message);
                 }).fail(function(response) {
